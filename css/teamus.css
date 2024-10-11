@@ -1,0 +1,96 @@
+.team-boxed {
+    color: #ffffff;
+    background-color: #ffffff;
+}
+
+.team-boxed .carousel-indicators {
+    bottom: -30px; /* Positioning the indicators */
+}
+
+.team-boxed .carousel-indicators li {
+    background-color: #ffffff; /* White color for inactive indicators */
+    border-radius: 50%; /* Make indicators circular */
+    width: 12px; /* Width of indicators */
+    height: 12px; /* Height of indicators */
+    opacity: 0.7; /* Slightly transparent */
+    border: 2px solid #0085B5; /* Blue stroke for inactive indicators */
+}
+
+.team-boxed .carousel-indicators li.active {
+    background-color: #0085B5; /* Blue color for active indicator */
+    opacity: 1; /* Fully opaque for active indicator */
+    border: 2px solid #ffffff; /* White stroke for active indicator */
+}
+
+.team-boxed .item {
+    text-align: center;
+}
+
+.team-boxed .item .box {
+    text-align: center;
+    padding: 30px;
+    background-color: #0085BE;
+    margin-bottom: 30px;
+    border-radius: 50px;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.team-boxed .item .box:hover {
+    background-color: #ffffff;
+    color: #000000;
+    transform: scale(1.05); /* Add pop-up effect */
+}
+
+.team-boxed .item .name,
+.team-boxed .item .title,
+.team-boxed .social a {
+    transition: color 0.3s ease;
+}
+
+.team-boxed .item .box:hover .name,
+.team-boxed .item .box:hover .title,
+.team-boxed .item .box:hover .social a {
+    color: #000000;
+}
+
+.team-boxed .item .name {
+    font-weight: bold;
+    margin-top: 28px;
+    margin-bottom: 8px;
+    color: inherit;
+}
+
+.team-boxed .item .title {
+    text-transform: uppercase;
+    color: #b4b4b4;
+    letter-spacing: 2px;
+    font-size: 13px;
+}
+
+.team-boxed .item .description {
+    font-size: 15px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.team-boxed .item img {
+    max-width: 160px;
+    border-radius: 50%;
+}
+
+.team-boxed .social {
+    font-size: 18px;
+    color: #000000;
+}
+
+.team-boxed .social a {
+    color: inherit;
+    margin: 0 10px;
+    display: inline-block;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.team-boxed .social a:hover {
+    opacity: 1;
+}

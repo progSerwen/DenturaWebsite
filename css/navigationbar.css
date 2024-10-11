@@ -1,0 +1,129 @@
+.custom-navbar {
+    background-image: none; /* Change this color as needed */
+    backdrop-filter: blur(10px);
+    transition: box-shadow 0.3s ease;
+    z-index: 1000;
+}
+/* Centering the nav-items */
+.navbar-nav {
+    text-align: center;
+}
+
+/* Navbar brand styling */
+.navbar-brand {
+    font-size: 24px; /* Increase font size for the brand */
+    font-weight: bold; /* Make the brand text bold */
+}
+
+/* Navbar category link styles */
+.navbar-nav .nav-link {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 20px;
+    font-weight: 400; /* Increase font size for nav items */
+    margin: 0 20px; /* Add horizontal margin to space out the items */
+    transition: color 0.3s ease, transform 0.3s ease; /* Transition for color and scale */
+}
+
+/* Navbar category hover effect */
+.navbar-nav .nav-link:hover {
+    color: #0085BE; /* Change text color on hover */
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block; /* Show dropdown when hovering over the nav item */
+    position: absolute; /* Position it properly */
+    z-index: 1000; /* Ensure it is above other elements */
+}
+
+/* Social media icon style */
+.social-icons {
+    display: flex; /* Ensure icons align side by side */
+    margin-right: 50px; /* Adds right margin to the whole group */
+}
+
+/* Social media icon circle styles */
+.social-icons .circle-icon {
+    background-color: #0085BE;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+    transition: background-color 0.3s ease; /* Transition for hover effect */
+}
+
+/* Social icon hover effect */
+.social-icons .circle-icon:hover {
+    background-color: #006c96; /* Change background color on hover */
+}
+
+/* Icon size */
+.social-icons .circle-icon i {
+    font-size: 18px;
+    transition: color 0.3s ease; /* Transition for icon color */
+}
+
+/* Icon color change on hover */
+.social-icons .circle-icon:hover i {
+    color: #fff; /* Keep the icon white on hover */
+}
+
+.sticky-top {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow when sticky */
+}
+
+/* Contact Us button style */
+.btn-contact-us {
+    background-color: #0085BE;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 20px;
+    margin-left: 15px;
+    border: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease; /* Transition for background color */
+}
+
+.btn-contact-us:hover {
+    background-color: #006c96; /* Darker shade on hover */
+}
+
+/* Dropdown item hover effect */
+.dropdown-item:hover {
+    background-color: #e2e6ea; /* Change background color on hover */
+}
+
+/* Dropdown menu styles (optional) */
+.dropdown-menu {
+    margin-top: 0; /* Adjusts spacing */
+    display: none; /* Hide dropdown initially */
+}
+
+/* Responsive styles for tablets and phones */
+@media (max-width: 992px) {
+    .navbar-nav {
+        flex-direction: column; /* Stack navigation items vertically */
+        text-align: left; /* Align text to the left */
+    }
+
+    /* Align social icons to the left and right */
+    .social-icons {
+        justify-content: space-between; /* Space between icons */
+        width: 100%; /* Make the icons take full width */
+        margin-top: 10px; /* Add space above the social icons on smaller screens */
+    }
+
+    .social-icons .nav-item {
+        flex: 1; /* Allow icons to take equal space */
+        text-align: center; /* Center icons within their space */
+    }
+
+    .btn-contact-us {
+        margin-top: 10px; /* Add space above button */
+        margin-left: 0; /* Reset margin-left */
+    }
+}

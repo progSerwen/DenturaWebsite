@@ -1,0 +1,89 @@
+/* Basic Reset */
+body, h2, form {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif; /* Simple sans-serif font */
+    background-color: #f8f9fa; /* Light gray background */
+    color: #333; /* Dark text color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    padding: 20px;
+}
+
+.container {
+    background: white; /* White background for the container */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 30px; /* Space inside the container */
+    width: 100%;
+    max-width: 450px; /* Maximum width for the container */
+}
+
+h2 {
+    margin-bottom: 20px; /* Space below the heading */
+    font-size: 28px; /* Larger font size for headings */
+    color: #212529; /* Darker text for headings */
+    text-align: center; /* Centered heading */
+}
+
+form {
+    width: 100%; /* Full width for the form */
+}
+
+div {
+    margin-bottom: 15px; /* Space between form elements */
+}
+
+label {
+    display: block; /* Labels take the full width */
+    margin-bottom: 5px; /* Space below labels */
+    font-weight: bold; /* Bold labels */
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%; /* Full width for inputs */
+    padding: 10px; /* Space inside inputs */
+    border: 1px solid #ced4da; /* Light gray border */
+    border-radius: 4px; /* Slightly rounded corners */
+    font-size: 14px; /* Font size for inputs */
+}
+
+textarea {
+    resize: vertical; /* Allow vertical resizing */
+}
+
+button {
+    background-color: #007bff; /* Bootstrap blue */
+    color: white; /* White text color */
+    padding: 10px; /* Space inside button */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 16px; /* Font size for the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    width: 100%; /* Full width for the button */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+a {
+    text-decoration: none; /* No underline */
+    color: #007bff; /* Bootstrap blue */
+    display: block; /* Block display */
+    margin-top: 15px; /* Space above the link */
+    text-align: center; /* Center the link */
+}
+
+a:hover {
+    text-decoration: underline; /* Underline on hover */
+}

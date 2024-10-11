@@ -1,0 +1,71 @@
+body {
+    background-color: #f0f8ff; /* Light background */
+}
+
+.container {
+    min-height: 100vh; /* Make container take full height */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.form-box {
+    max-width: 600px; /* Limit the form width */
+    width: 100%; /* Ensure the form takes the full width */
+    background-color: #ffffff; /* White background */
+    padding: 30px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+h1 {
+    color: #0085BE; /* Blue title */
+    font-weight: bold; /* Bold title */
+    margin-bottom: 30px; /* Space below the title */
+}
+
+label {
+    color: #333333; /* Dark text color for labels */
+    font-weight: 600; /* Semi-bold for better readability */
+}
+
+.form-control {
+    border-radius: 5px; /* Slightly rounded input */
+    border: 1px solid #ccc; /* Light border */
+    transition: all 0.3s ease-in-out; /* Smooth transition */
+}
+
+.form-control:focus {
+    border-color: #0085BE; /* Blue border when focused */
+    box-shadow: 0 0 5px rgba(0, 133, 190, 0.5); /* Blue glow */
+}
+
+.input-group-text {
+    background-color: #f0f8ff; /* Match input background */
+    border-right: 0; /* Remove right border */
+}
+
+.input-group-text i {
+    color: #0085BE; /* Icon color */
+}
+
+.input-group .form-control {
+    border-left: 0; /* Remove left border */
+}
+
+.btn-primary {
+    background-color: #0085BE; /* Blue button */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Button padding */
+    font-size: 16px; /* Button text size */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth color transition */
+}
+
+.btn-primary:hover {
+    background-color: #006494; /* Darker blue on hover */
+}
+
+.form-group {
+    margin-bottom: 20px; /* Space between form fields */
+}

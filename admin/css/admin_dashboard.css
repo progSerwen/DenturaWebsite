@@ -1,0 +1,65 @@
+/* dashboard.css */
+
+/* Sidebar styling */
+.sidebar {
+    height: 100vh; /* Full height */
+    padding-top: 20px; /* Spacing from top */
+}
+
+.sidebar .nav-item {
+    margin-top: 10px; /* Add top margin to each nav item */
+}
+
+.sidebar .nav-link {
+    color: #333; /* Default link color */
+    padding: 10px 15px; /* Padding for the links */
+    border: 2px solid transparent; /* Initial transparent border for effect */
+    border-radius: 5px; /* Rounded corners */
+    position: relative; /* Position for pseudo-element */
+    overflow: hidden; /* Hide overflow for border effects */
+    transition: all 0.3s; /* Smooth transition for hover effect */
+}
+
+.sidebar .nav-link:before {
+    content: ''; /* Create a pseudo-element */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid #007bff; /* Stroke border color */
+    border-radius: 5px; /* Match the border-radius */
+    opacity: 0; /* Hide initially */
+    transition: opacity 0.3s; /* Smooth transition for hover effect */
+    z-index: 0; /* Send the border behind the text */
+}
+
+.sidebar .nav-link:hover {
+    color: #007bff; /* Change text color on hover */
+}
+
+.sidebar .nav-link:hover:before {
+    opacity: 1; /* Show border on hover */
+}
+
+.sidebar .nav-link.active {
+    font-weight: bold; /* Bold for active link */
+    color: #007bff; /* Bootstrap primary color */
+    background-color: #f8f9fa; /* Light background for active link */
+    border-color: #007bff; /* Stroke color when active */
+}
+
+/* Main content area */
+main {
+    padding: 20px; /* Spacing around main content */
+}
+
+/* Center the logout button */
+.sidebar .btn-danger {
+    width: 100%; /* Full width */
+}
+
+.dashboard-header {
+    color: #0085BE;
+}
+

@@ -1,0 +1,107 @@
+.team-boxed {
+  color: #ffffff;
+  background-color: #ffffff;
+}
+
+.team-boxed p {
+  color: #ffffff;
+}
+
+.team-boxed h2 {
+  margin-bottom: 40px;
+  padding-top: 40px;
+  color: inherit;
+}
+
+@media (max-width: 767px) {
+  .team-boxed h2 {
+      margin-bottom: 25px;
+      padding-top: 25px;
+      font-size: 24px;
+  }
+}
+
+.team-boxed .intro {
+  font-size: 16px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.team-boxed .intro p {
+  margin-bottom: 0;
+}
+
+.team-boxed .people {
+  padding: 50px 0;
+}
+
+.team-boxed .item {
+  text-align: center;
+}
+
+.team-boxed .item .box {
+  text-align: center;
+  padding: 30px;
+  background-color: #0085BE;
+  margin-bottom: 30px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.team-boxed .item .box:hover {
+  background-color: #ffffff;
+  color: #000000;
+  transform: scale(1.05); /* Add pop-up effect */
+}
+
+.team-boxed .item .name,
+.team-boxed .item .title,
+.team-boxed .social a {
+  transition: color 0.3s ease;
+}
+
+.team-boxed .item .box:hover .name,
+.team-boxed .item .box:hover .title,
+.team-boxed .item .box:hover .social a {
+  color: #000000;
+}
+
+.team-boxed .item .name {
+  font-weight: bold;
+  margin-top: 28px;
+  margin-bottom: 8px;
+  color: inherit;
+}
+
+.team-boxed .item .title {
+  text-transform: uppercase;
+  color: #b4b4b4;
+  letter-spacing: 2px;
+  font-size: 13px;
+}
+
+.team-boxed .item .description {
+  font-size: 15px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.team-boxed .item img {
+  max-width: 160px;
+}
+
+.team-boxed .social {
+  font-size: 18px;
+  color: #000000;
+}
+
+.team-boxed .social a {
+  color: inherit;
+  margin: 0 10px;
+  display: inline-block;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.team-boxed .social a:hover {
+  opacity: 1;
+}

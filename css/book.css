@@ -1,0 +1,52 @@
+body {
+    background-color: #f8f9fa; /* Light background color for the body */
+}
+
+.container-fluid {
+    height: 100vh; /* Full viewport height */
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+}
+
+.booking-form {
+    background: #ffffff; /* White background for the form */
+    padding: 30px; /* Padding around the form */
+    border-radius: 8px; /* Rounded corners for the form */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+.booking-form .form-control { /* Target all form controls (inputs and textareas) */
+    border-radius: 8px; /* Rounded corners for inputs and textareas */
+}
+
+.image-container {
+    position: relative; /* Relative positioning for child elements */
+    width: 100%; /* Full width for the image container */
+    max-width: 500px; /* Maximum width of 500px */
+    overflow: hidden; /* Hide overflow for images */
+    border-radius: 8px; /* Rounded corners for the image container */
+}
+
+.contact-image {
+    width: 100%; /* Full width */
+    height: auto; /* Maintain aspect ratio */
+    max-height: 500px; /* Maximum height of 500px */
+    object-fit: cover; /* Cover the area properly without distortion */
+}
+
+.excited-text {
+    color: #0085BE; /* Set text color to #0085BE */
+}
+
+/* Optional: Responsive styles */
+@media (max-width: 768px) {
+    .booking-form {
+        width: 90%; /* Make form width responsive */
+        margin: 0 auto; /* Center the form */
+    }
+
+    .contact-image {
+        max-width: 100%; /* Allow image to be full width on small screens */
+    }
+}

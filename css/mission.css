@@ -1,0 +1,32 @@
+
+h6{
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #0085BE; /* Dark gray for subheadings */
+    margin-bottom: 20px; /* Space below subheadings */
+}
+
+p {
+    color: #555; /* Medium gray for text */
+    line-height: 1.6; /* Increased line height for readability */
+    margin-bottom: 10px; /* Space below paragraphs */
+}
+
+iframe {
+    border-radius: 8px; /* Rounded corners for the map */
+    overflow: hidden; /* Ensures corners of iframe are not sharp */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column; /* Stack columns on smaller screens */
+    }
+    .col-md-6 {
+        width: 100%; /* Full width on smaller screens */
+        margin-bottom: 20px; /* Space between stacked columns */
+    }
+}

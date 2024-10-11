@@ -1,0 +1,11 @@
+
+.list-group-item {
+    background-color: #0085BE;
+    color: #ffffff;
+    transition: background-color 0.3s, color 0.3s; /* Add transition for text color */
+}
+
+.list-group-item:hover {
+    background-color: #ffffff; /* Change background on hover */
+    color: rgb(0, 0, 0); /* Change text color on hover */
+}
