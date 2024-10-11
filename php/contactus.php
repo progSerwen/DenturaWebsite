@@ -15,7 +15,7 @@
         <div class="row w-75">
             <div class="col-md-6 contact-form">
                 <h5 class="text-center excited-text">We're excited to hear from you</h5>
-                <h2 class="text-center">Contact Us</h2>
+                <h2 class="text-center"><strong>Contact Us</strong> </h2>
                 <form action="send_mail.php" method="POST"> <!-- Updated form action -->
                     <div class="form-group">
                         <label for="fullName">Full Name</label>
@@ -39,6 +39,8 @@
             </div>
         </div>
     </div>
+
+    <?php include 'footer.php'; ?>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

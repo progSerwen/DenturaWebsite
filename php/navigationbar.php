@@ -31,6 +31,9 @@
                     <li class="nav-item category">
                         <a class="nav-link" aria-current="page" href="homepage.php">Home</a>
                     </li>
+                    <li class="nav-item category">
+                      <a class="nav-link" aria-current="page" href="aboutus.php">About Us</a>
+                   </li>
                     <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Services

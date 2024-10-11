@@ -27,9 +27,10 @@
                     <h1 class="mb-4">About Us</h1>
                     <p>At Dentura, we are committed to providing the highest quality dental care to our patients. With a team of experienced professionals and state-of-the-art technology, we strive to make your dental experience comfortable and effective.</p>
                     <p>Our mission is to promote excellent oral health and provide affordable dental care services for all. We believe in building long-term relationships with our patients, ensuring their comfort and satisfaction with every visit.</p>
-                    <a href="aboutus.php" >
-                    Know more
+                    <a href="aboutus.php" class="font-weight-bold">
+                     <i class="fas fa-info-circle"></i> Know more
                     </a>
+
                 </div>
             </div>
         </div>
@@ -37,7 +38,7 @@
 
 
     <!-- Footer -->
-
+    
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

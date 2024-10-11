@@ -14,7 +14,9 @@ $activeSection = 'users'; // Default active section
 if (isset($_GET['section'])) {
     $activeSection = $_GET['section'];
 }
+
 ?>
+
 
 
 <!DOCTYPE html>
@@ -54,33 +56,41 @@ if ($result->num_rows > 0) {
 $conn->close();
 ?>
 
+
 <!-- Top Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">DenturAdmin</a>
+        <a class="navbar-brand" href="#">
+            <img src="/assets/images/DENTURA.png" alt="DenturAdmin Logo" style="height: 100px;"> <!-- Adjust height as needed -->
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <span class="nav-link">Hello, <?php echo htmlspecialchars($_SESSION['username']); ?>!</span>
+                    <span class="nav-link text-dark">Hello, <b><?php echo htmlspecialchars($_SESSION['username']); ?></b> !</span>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="?section=bookings">
+                    <a class="nav-link text-dark" href="#" id="notification-btn">
                         <i class="fas fa-bell"></i> Notifications 
                         <?php if ($newBookings > 0): ?>
                             <span class="badge badge-danger"><?php echo $newBookings; ?></span>
                         <?php endif; ?>
                     </a>
                 </li>
+                <!-- Logout Button -->
                 <li class="nav-item">
-                    <span class="nav-link">Welcome to DenturAdmin</span>
+                    <a href="logout.php" class="nav-link text-dark">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+
+
 
 <div class="container-fluid">
     <div class="row">
@@ -109,15 +119,15 @@ $conn->close();
                         </a>
                     </li>
                 </ul>
-                <div class="text-center mt-4">
+                <!-- <div class="text-center mt-4">
                     <a href="logout.php" class="btn btn-danger">Logout</a>
-                </div>
+                </div> -->
             </div>
         </nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <h1 class="text-center mt-5 dashboard-header">Welcome to the D E N T U R A D M I N</h1>
-            <h3 class="text-center">Hello, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h3>
+            <!-- <h3 class="text-center">Hello, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h3> -->
 
             <?php
             if (isset($_SESSION['delete_success'])) {
@@ -352,9 +362,58 @@ $conn->close();
     </div>
 </div>
 
+<!-- Modal for Pending Bookings Notification -->
+<div class="modal fade" id="pendingBookingsModal" tabindex="-1" aria-labelledby="pendingBookingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pendingBookingsModalLabel">Pending Appointments</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                You have <strong><?php echo $newBookings; ?></strong> pending appointments. Please review them in Bookings!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <!-- Removed the Go to Bookings button -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+<script>
+    $(document).ready(function () {
+        // Only show the modal when the notification button is clicked
+        $('#notification-btn').on('click', function (e) {
+            e.preventDefault(); // Prevent the default link behavior
+            if (<?php echo $newBookings; ?> > 0) {
+                $('#pendingBookingsModal').modal('show'); // Show the modal
+            }
+        });
+
+        // Handle the modal close event
+        $('#pendingBookingsModal').on('hidden.bs.modal', function () {
+            // Optional: You may want to do something else here when the modal closes
+        });
+
+        // Show bookings when the user clicks the button inside the modal
+        $('#goToBookings').on('click', function () {
+            $('#pendingBookingsModal').modal('hide'); // Hide the modal
+            showBookings(); // Show the bookings section
+        });
+    });
+</script>
+
+
 
 <script>
     function showUsers() {

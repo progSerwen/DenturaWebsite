@@ -125,13 +125,13 @@
     </div>
 </section>
 
-<!-- Book Appointment button -->
+<!-- Book Appointment button
 <div class="text-center">
 <a href="booking_form.php" class="btn btn-appointment btn-lg custom-btn" 
 style="background-color: #0085BE; color: white; border: 2px solid #0085BE; text-align: center; text-decoration: none;
  padding: 10px 20px; transition: background-color 0.3s ease, color 0.3s ease;">
     Book an Appointment
-</a>
+</a> -->
 
 </div>
 
