@@ -13,12 +13,12 @@
 <body>
     <div class="team-boxed">
         <div id="teamCarousel" class="carousel slide" data-ride="carousel" data-interval="3000">
-            <!-- Indicators -->
+            <!-- Indicators
             <ol class="carousel-indicators">
                 <li data-target="#teamCarousel" data-slide-to="0" class="active"></li>
                 <li data-target="#teamCarousel" data-slide-to="1"></li>
                 <li data-target="#teamCarousel" data-slide-to="2"></li>
-            </ol>
+            </ol> -->
 
             <!-- Carousel inner -->
             <div class="carousel-inner">
@@ -50,8 +50,7 @@
                     </div>
                 </div>
 
-                <!-- Repeat for other carousel items -->
-                <div class="carousel-item">
+                <!-- <div class="carousel-item">
                     <div class="container">
                         <div class="row people">
                             <div class="col-md-6 col-lg-4 item">
@@ -75,7 +74,6 @@
                                     <div class="social"><a href="https://www.facebook.com/"><i class="fa fa-facebook-official"></i></a><a href="https://x.com/?lang=en"><i class="fa fa-twitter"></i></a><a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a></div>
                                 </div>
                             </div>
-                            <!-- Add more items -->
                         </div>
                     </div>
                 </div>
@@ -104,15 +102,13 @@
                                     <div class="social"><a href="https://www.facebook.com/"><i class="fa fa-facebook-official"></i></a><a href="https://x.com/?lang=en"><i class="fa fa-twitter"></i></a><a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a></div>
                                 </div>
                             </div>
-                            <!-- Add more items -->
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <!-- Add more carousel items as needed -->
             </div>
 
-            <!-- Carousel controls -->
+            <!-- Carousel controls
             <a class="carousel-control-prev" href="#teamCarousel" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
@@ -120,7 +116,7 @@
             <a class="carousel-control-next" href="#teamCarousel" role="button" data-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
-            </a>
+            </a> -->
         </div>
     </div>
 

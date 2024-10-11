@@ -35,6 +35,9 @@
             <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Services
             </a>
+            <li class="nav-item category">
+                <a class="nav-link" aria-current="page" href="contactus.php">Contact Us</a>
+            </li>
             <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
                 <?php
                 // Fetch services from the database
@@ -70,26 +73,13 @@
             </ul>
         </li>
 
-                    <li class="nav-item category">
-                        <a class="nav-link" href="aboutus.php">About us</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav social-icons">
-                    <li class="nav-item">
-                        <a class="nav-link circle-icon" href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link circle-icon" href="https://x.com/?lang=en"><i class="fab fa-twitter"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link circle-icon" href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
-                    </li>
-                    <li class="nav-item">
+                    
+                    <!-- <li class="nav-item">
                         <a href="contactus.php" class="btn btn-appointment btn-lg custom-btn" 
                         style="background-color: #0085BE; color: white; border: 2px solid #0085BE; text-align: center; text-decoration: none; padding: 5px 10px; transition: background-color 0.3s ease, color 0.3s ease;">
                             Contact Us
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div> 

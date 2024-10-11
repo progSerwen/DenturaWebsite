@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-lg-6">
                     <h5 class="mb-2">About Us</h5>
-                    <h1 class="mb-4">Who is Dentura?</h1>
+                    <h1 class="mb-4">What is Dentura?</h1>
                     <p>Welcome to Dentura, where we believe that a healthy, beautiful smile is the foundation of confidence and well-being. Our mission is to provide top-tier dental care in a friendly, relaxing environment. Whether you need routine check-ups or more advanced treatments, our experienced team is here to cater to all your dental needs.</p>
                     <p>At Dentura, we combine modern technology with a personalized touch to deliver the highest standards of care. Our team of skilled dentists, hygienists, and specialists are passionate about creating a positive experience for every patient, ensuring comfort and peace of mind at every visit. We are committed to listening to your concerns and working with you to create the perfect treatment plan.</p>
                     <p>From preventive care to cosmetic dentistry, implants, and orthodontics, Dentura offers a full spectrum of services designed to keep your smile healthy and radiant. We also offer specialized care for children, ensuring that the entire family can benefit from our expertise in a single, welcoming setting.</p>

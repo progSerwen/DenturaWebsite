@@ -16,6 +16,14 @@ if (isset($_GET['section'])) {
 }
 ?>
 
+<?php
+if (isset($_GET['message'])) {
+    $message = htmlspecialchars($_GET['message']);
+    echo "<div class='alert alert-success'>Status: $message!</div>";
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,6 +49,11 @@ if (isset($_GET['section'])) {
             <div class="sidebar-sticky">
                 <h4 class="text-center">D E N T U R A D M I N</h4>
                 <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo ($activeSection === 'users') ? 'active' : ''; ?>" href="?section=users" onclick="showUsers()">
+                            <i class="fas fa-user-shield"></i> Manage Admin Users
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link <?php echo ($activeSection === 'users') ? 'active' : ''; ?>" href="?section=users" onclick="showUsers()">
                             <i class="fas fa-user-shield"></i> Manage Admin Users
@@ -234,9 +247,14 @@ if (isset($_GET['section'])) {
             </div>
 
 <!-- Display Booking Information -->
-<!-- Display Booking Information -->
-<!-- Display Booking Information -->
 <div id="booking-info" class="mt-5 <?php echo ($activeSection === 'bookings') ? '' : 'hidden'; ?>">
+    <?php
+    // Display success message if booking status has been updated
+    if (isset($_GET['message'])) {
+        $message = htmlspecialchars($_GET['message']);
+        echo "<div class='alert alert-success'>Status: $message!</div>";
+    }
+    ?>
     <table class="table mt-3">
         <thead>
             <tr>
@@ -248,6 +266,7 @@ if (isset($_GET['section'])) {
                 <th>Branch</th>
                 <th>Date</th>
                 <th>Time</th>
+                <th>Status</th> <!-- Added Status Header -->
                 <th>Actions</th>
             </tr>
         </thead>
@@ -260,7 +279,8 @@ if (isset($_GET['section'])) {
                 die("Connection failed: " . $conn->connect_error);
             }
 
-            $result = $conn->query("SELECT id, name, number, email, reason, branch, date, time FROM bookings");
+            // SQL query to fetch booking details with status. If status is NULL, default to 'Pending'
+            $result = $conn->query("SELECT id, name, number, email, reason, branch, date, time, COALESCE(status, 'Pending') AS status FROM bookings");
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
@@ -273,15 +293,22 @@ if (isset($_GET['section'])) {
                             <td>" . htmlspecialchars($row['branch']) . "</td>
                             <td>" . htmlspecialchars($row['date']) . "</td>
                             <td>" . htmlspecialchars($row['time']) . "</td>
+                            <td>" . htmlspecialchars($row['status']) . "</td> <!-- Display status value -->
                             <td>
-                                <a href='delete_booking.php?id=" . urlencode($row['id']) . "' class='text-danger'>
+                                <a href='check_booking.php?id=" . urlencode($row['id']) . "&action=accept' class='text-success mr-3' title='Accept Booking'>
+                                    <i class='fas fa-check'></i>
+                                </a>
+                                <a href='reject_booking.php?id=" . urlencode($row['id']) . "&action=reject' class='text-danger mr-3' title='Reject Booking'>
+                                    <i class='fas fa-times'></i>
+                                </a>
+                                <a href='delete_booking.php?id=" . urlencode($row['id']) . "' class='text-danger' title='Delete Booking'>
                                     <i class='fas fa-trash'></i>
                                 </a>
                             </td>
                           </tr>";
                 }
             } else {
-                echo "<tr><td colspan='8' class='text-center'>No bookings available.</td></tr>";
+                echo "<tr><td colspan='10' class='text-center'>No bookings available.</td></tr>";
             }
 
             $conn->close(); // Close the connection after using it
@@ -291,12 +318,20 @@ if (isset($_GET['section'])) {
 </div>
 
 
+
+
+
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
     // Functions to display the appropriate section
+    function showUsers() {
+        window.location.href = "?section=users"; // Redirect to the users section
+    }
+
     function showUsers() {
         window.location.href = "?section=users"; // Redirect to the users section
     }
