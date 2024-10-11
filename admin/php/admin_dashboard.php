@@ -16,13 +16,6 @@ if (isset($_GET['section'])) {
 }
 ?>
 
-<?php
-if (isset($_GET['message'])) {
-    $message = htmlspecialchars($_GET['message']);
-    echo "<div class='alert alert-success'>Status: $message!</div>";
-}
-?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,17 +36,58 @@ if (isset($_GET['message'])) {
 </head>
 <body>
 
+<?php
+// Database configuration for booking notifications
+$conn = new mysqli("localhost", "root", "", "dentura");
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Count new (pending) bookings
+$result = $conn->query("SELECT COUNT(*) as newBookings FROM bookings WHERE status = 'Pending'");
+$newBookings = 0;
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $newBookings = $row['newBookings'];
+}
+$conn->close();
+?>
+
+<!-- Top Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">DenturAdmin</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <span class="nav-link">Hello, <?php echo htmlspecialchars($_SESSION['username']); ?>!</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="?section=bookings">
+                        <i class="fas fa-bell"></i> Notifications 
+                        <?php if ($newBookings > 0): ?>
+                            <span class="badge badge-danger"><?php echo $newBookings; ?></span>
+                        <?php endif; ?>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <span class="nav-link">Welcome to DenturAdmin</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <div class="container-fluid">
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
                 <h4 class="text-center">D E N T U R A D M I N</h4>
                 <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link <?php echo ($activeSection === 'users') ? 'active' : ''; ?>" href="?section=users" onclick="showUsers()">
-                            <i class="fas fa-user-shield"></i> Manage Admin Users
-                        </a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link <?php echo ($activeSection === 'users') ? 'active' : ''; ?>" href="?section=users" onclick="showUsers()">
                             <i class="fas fa-user-shield"></i> Manage Admin Users
@@ -85,7 +119,7 @@ if (isset($_GET['message'])) {
             <h1 class="text-center mt-5 dashboard-header">Welcome to the D E N T U R A D M I N</h1>
             <h3 class="text-center">Hello, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h3>
 
-                    <?php
+            <?php
             if (isset($_SESSION['delete_success'])) {
                 echo "<div class='alert alert-success'>" . $_SESSION['delete_success'] . "</div>";
                 unset($_SESSION['delete_success']); // Clear the message after displaying
@@ -112,7 +146,6 @@ if (isset($_GET['message'])) {
                     </thead>
                     <tbody>
                         <?php
-                        // Database configuration
                         $conn = new mysqli("localhost", "root", "", "dentura");
 
                         if ($conn->connect_error) {
@@ -168,7 +201,7 @@ if (isset($_GET['message'])) {
                             die("Connection failed: " . $conn->connect_error);
                         }
 
-                        $result = $conn->query("SELECT id, service_name, description, cost FROM services");
+                        $result = $conn->query("SELECT id, service_name, description FROM services");
 
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
@@ -187,7 +220,7 @@ if (isset($_GET['message'])) {
                                       </tr>";
                             }
                         } else {
-                            echo "<tr><td colspan='4' class='text-center'>No services available.</td></tr>";
+                            echo "<tr><td colspan='4' class='text-center'>No registered services found.</td></tr>";
                         }
 
                         $conn->close();
@@ -245,33 +278,32 @@ if (isset($_GET['message'])) {
                     </tbody>
                 </table>
             </div>
-
-<!-- Display Booking Information -->
-<div id="booking-info" class="mt-5 <?php echo ($activeSection === 'bookings') ? '' : 'hidden'; ?>">
-    <?php
-    // Display success message if booking status has been updated
-    if (isset($_GET['message'])) {
-        $message = htmlspecialchars($_GET['message']);
-        echo "<div class='alert alert-success'>Status: $message!</div>";
-    }
-    ?>
-    <table class="table mt-3">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Phone Number</th>
-                <th>Email</th>
-                <th>Reason</th>
-                <th>Branch</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Status</th> <!-- Added Status Header -->
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+            <!-- Display Bookings Information -->
+            <div id="bookings-info" class="mt-5 <?php echo ($activeSection === 'bookings') ? '' : 'hidden'; ?>">
             <?php
+            // Display success message if booking status has been updated
+            if (isset($_GET['message'])) {
+            $message = htmlspecialchars($_GET['message']);
+            echo "<div class='alert alert-success'>Status: $message!</div>";
+            }
+            ?>
+                <table class="table mt-3">
+                    <thead>
+                        <tr>
+                          <th>Id</th>
+                          <th>Name</th>
+                          <th>Phone Number</th>
+                          <th>Email</th>
+                          <th>Reason</th>
+                          <th>Branch</th>
+                          <th>Date</th>
+                          <th>Time</th>
+                          <th>Status</th> <!-- Added Status Header -->
+                          <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
             // Create a new connection for the bookings section
             $conn = new mysqli("localhost", "root", "", "dentura");
 
@@ -279,8 +311,8 @@ if (isset($_GET['message'])) {
                 die("Connection failed: " . $conn->connect_error);
             }
 
-            // SQL query to fetch booking details with status. If status is NULL, default to 'Pending'
             $result = $conn->query("SELECT id, name, number, email, reason, branch, date, time, COALESCE(status, 'Pending') AS status FROM bookings");
+
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
@@ -313,39 +345,46 @@ if (isset($_GET['message'])) {
 
             $conn->close(); // Close the connection after using it
             ?>
-        </tbody>
-    </table>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
 </div>
 
-
-
-
-
-
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
-    // Functions to display the appropriate section
     function showUsers() {
-        window.location.href = "?section=users"; // Redirect to the users section
-    }
-
-    function showUsers() {
-        window.location.href = "?section=users"; // Redirect to the users section
+        document.getElementById("user-info").classList.remove("hidden");
+        document.getElementById("service-info").classList.add("hidden");
+        document.getElementById("branches-info").classList.add("hidden");
+        document.getElementById("bookings-info").classList.add("hidden");
     }
 
     function showServices() {
-        window.location.href = "?section=services"; // Redirect to the services section
+        document.getElementById("user-info").classList.add("hidden");
+        document.getElementById("service-info").classList.remove("hidden");
+        document.getElementById("branches-info").classList.add("hidden");
+        document.getElementById("bookings-info").classList.add("hidden");
     }
 
     function showBranches() {
-        window.location.href = "?section=branches"; // Redirect to the branches section
+        document.getElementById("user-info").classList.add("hidden");
+        document.getElementById("service-info").classList.add("hidden");
+        document.getElementById("branches-info").classList.remove("hidden");
+        document.getElementById("bookings-info").classList.add("hidden");
     }
+
     function showBookings() {
-        window.location.href = "?section=bookings"; // Redirect to the branches section
+        document.getElementById("user-info").classList.add("hidden");
+        document.getElementById("service-info").classList.add("hidden");
+        document.getElementById("branches-info").classList.add("hidden");
+        document.getElementById("bookings-info").classList.remove("hidden");
     }
 </script>
+
 </body>
 </html>
