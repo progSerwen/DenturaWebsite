@@ -15,7 +15,11 @@ if (isset($_GET['section'])) {
     $activeSection = $_GET['section'];
 }
 
+include 'manage-dentists.php';
+
 ?>
+
+
 
 
 
@@ -29,6 +33,8 @@ if (isset($_GET['section'])) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/admin/css/admin_dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+
     <style>
         /* Additional CSS for hiding/showing sections */
         .hidden {
@@ -104,6 +110,11 @@ $conn->close();
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link <?php echo ($activeSection === 'dentists') ? 'active' : ''; ?>" href="?section=dentists" onclick="showDentists()">
+                            <i class="fas fa-user-md"></i> Dentists
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link <?php echo ($activeSection === 'services') ? 'active' : ''; ?>" href="?section=services" onclick="showServices()">
                             <i class="fas fa-tools"></i> Services
                         </a>
@@ -118,6 +129,7 @@ $conn->close();
                             <i class="fas fa-calendar-check"></i> View Bookings
                         </a>
                     </li>
+                    
                 </ul>
                 <!-- <div class="text-center mt-4">
                     <a href="logout.php" class="btn btn-danger">Logout</a>
@@ -358,90 +370,234 @@ $conn->close();
                     </tbody>
                 </table>
             </div>
-        </main>
-    </div>
+
+
+
+
+             <!-- After including manage-dentists.php -->
+<div class="container mt-5">
+    <?php if ($activeSection === 'dentists') : ?> <!-- Check if the active section is dentists -->
+        <h3>Dentists List</h3>
+        <button class="btn btn-success mb-3" data-toggle="modal" data-target="#addDentistModal">
+            <i class="fas fa-plus"></i> Add Dentist
+        </button>
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (!empty($dentists)) : ?>
+                    <?php foreach ($dentists as $dentist) : ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($dentist['id']); ?></td>
+                            <td><?php echo htmlspecialchars($dentist['name']); ?></td>
+                            <td>
+                                <!-- Edit Button -->
+                                <button class="btn text-warning mr-3" onclick="editDentist(<?php echo $dentist['id']; ?>, '<?php echo htmlspecialchars($dentist['name']); ?>')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <!-- Delete Button -->
+                                <button class="btn text-danger" onclick="deleteDentist(<?php echo $dentist['id']; ?>)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <tr>
+                        <td colspan="3" class="text-center">No dentists available.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    <?php endif; ?> <!-- End of dentists section check -->
 </div>
 
-<!-- Modal for Pending Bookings Notification -->
-<div class="modal fade" id="pendingBookingsModal" tabindex="-1" aria-labelledby="pendingBookingsModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+
+<!-- Modal for Adding Dentist -->
+<div class="modal fade" id="addDentistModal" tabindex="-1" role="dialog" aria-labelledby="addDentistModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="pendingBookingsModalLabel">Pending Appointments</h5>
+                <h5 class="modal-title" id="addDentistModalLabel">Add Dentist</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                You have <strong><?php echo $newBookings; ?></strong> pending appointments. Please review them in Bookings!
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <!-- Removed the Go to Bookings button -->
-            </div>
+            <form action="manage-dentists.php" method="POST">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="dentistName">Name</label>
+                        <input type="text" class="form-control" id="dentistName" name="name" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="action" value="add">Add Dentist</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
 
+
+        </main>
+    </div>
+</div>
+
+
+<!-- Modal for Editing Dentist -->
+<div class="modal fade" id="editDentistModal" tabindex="-1" role="dialog" aria-labelledby="editDentistModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editDentistModalLabel">Edit Dentist</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="manage-dentists.php" method="POST">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="hidden" id="editDentistId" name="id">
+                        <label for="editDentistName">Name</label>
+                        <input type="text" class="form-control" id="editDentistName" name="name" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="action" value="update">Update Dentist</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
 
 
 <script>
     $(document).ready(function () {
-        // Only show the modal when the notification button is clicked
+        // Show SweetAlert for pending bookings when the notification button is clicked
         $('#notification-btn').on('click', function (e) {
             e.preventDefault(); // Prevent the default link behavior
             if (<?php echo $newBookings; ?> > 0) {
-                $('#pendingBookingsModal').modal('show'); // Show the modal
+                swal({
+                    title: "Pending Appointments",
+                    text: "You have <strong><?php echo $newBookings; ?></strong> pending appointments. Please review them in Bookings!",
+                    html: true,
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Go to Bookings",
+                    cancelButtonText: "Close",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        window.location.href = "?section=bookings"; // Redirect to bookings section
+                    }
+                });
             }
         });
 
-        // Handle the modal close event
-        $('#pendingBookingsModal').on('hidden.bs.modal', function () {
-            // Optional: You may want to do something else here when the modal closes
-        });
+        // Example: Using SweetAlert for success messages (optional)
+        <?php if (isset($_SESSION['delete_success'])): ?>
+            swal("Deleted!", "<?php echo $_SESSION['delete_success']; ?>", "success");
+            <?php unset($_SESSION['delete_success']); // Clear the message after displaying ?>
+        <?php endif; ?>
 
-        // Show bookings when the user clicks the button inside the modal
-        $('#goToBookings').on('click', function () {
-            $('#pendingBookingsModal').modal('hide'); // Hide the modal
-            showBookings(); // Show the bookings section
-        });
+        <?php if (isset($_SESSION['delete_error'])): ?>
+            swal("Error!", "<?php echo $_SESSION['delete_error']; ?>", "error");
+            <?php unset($_SESSION['delete_error']); // Clear the message after displaying ?>
+        <?php endif; ?>
     });
 </script>
 
 
-
 <script>
     function showUsers() {
-        document.getElementById("user-info").classList.remove("hidden");
-        document.getElementById("service-info").classList.add("hidden");
-        document.getElementById("branches-info").classList.add("hidden");
-        document.getElementById("bookings-info").classList.add("hidden");
+    document.getElementById("user-info").classList.remove("hidden");
+    document.getElementById("service-info").classList.add("hidden");
+    document.getElementById("branches-info").classList.add("hidden");
+    document.getElementById("bookings-info").classList.add("hidden");
+    document.getElementById("dentists-info").classList.add("hidden"); // Hide dentists section
+}
+
+function showServices() {
+    document.getElementById("user-info").classList.add("hidden");
+    document.getElementById("service-info").classList.remove("hidden");
+    document.getElementById("branches-info").classList.add("hidden");
+    document.getElementById("bookings-info").classList.add("hidden");
+    document.getElementById("dentists-info").classList.add("hidden"); // Hide dentists section
+}
+
+function showBranches() {
+    document.getElementById("user-info").classList.add("hidden");
+    document.getElementById("service-info").classList.add("hidden");
+    document.getElementById("branches-info").classList.remove("hidden");
+    document.getElementById("bookings-info").classList.add("hidden");
+    document.getElementById("dentists-info").classList.add("hidden"); // Hide dentists section
+}
+
+function showBookings() {
+    document.getElementById("user-info").classList.add("hidden");
+    document.getElementById("service-info").classList.add("hidden");
+    document.getElementById("branches-info").classList.add("hidden");
+    document.getElementById("bookings-info").classList.remove("hidden");
+    document.getElementById("dentists-info").classList.add("hidden"); // Hide dentists section
+}
+
+function showDentists() {
+    document.getElementById("user-info").classList.add("hidden");
+    document.getElementById("service-info").classList.add("hidden");
+    document.getElementById("branches-info").classList.add("hidden");
+    document.getElementById("bookings-info").classList.add("hidden");
+    document.getElementById("dentists-info").classList.remove("hidden"); // Show dentists section
+}
+
+</script>
+
+<!-- CRUD -->
+
+<!-- JavaScript Functions for Edit and Delete -->
+<script>
+    function editDentist(id, name) {
+        // Populate the modal with the current dentist information
+        document.getElementById('editDentistId').value = id;
+        document.getElementById('editDentistName').value = name;
+        $('#editDentistModal').modal('show');
     }
 
-    function showServices() {
-        document.getElementById("user-info").classList.add("hidden");
-        document.getElementById("service-info").classList.remove("hidden");
-        document.getElementById("branches-info").classList.add("hidden");
-        document.getElementById("bookings-info").classList.add("hidden");
-    }
-
-    function showBranches() {
-        document.getElementById("user-info").classList.add("hidden");
-        document.getElementById("service-info").classList.add("hidden");
-        document.getElementById("branches-info").classList.remove("hidden");
-        document.getElementById("bookings-info").classList.add("hidden");
-    }
-
-    function showBookings() {
-        document.getElementById("user-info").classList.add("hidden");
-        document.getElementById("service-info").classList.add("hidden");
-        document.getElementById("branches-info").classList.add("hidden");
-        document.getElementById("bookings-info").classList.remove("hidden");
+    function deleteDentist(id) {
+        if (confirm('Are you sure you want to delete this dentist?')) {
+            // Create a form to submit the delete action
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'manage-dentists.php';
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'id';
+            input.value = id;
+            form.appendChild(input);
+            const actionInput = document.createElement('input');
+            actionInput.type = 'hidden';
+            actionInput.name = 'action';
+            actionInput.value = 'delete';
+            form.appendChild(actionInput);
+            document.body.appendChild(form);
+            form.submit();
+        }
     }
 </script>
 
