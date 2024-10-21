@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 break;
         }
         // Redirect back to the admin dashboard or handle AJAX response
-        header("Location: admin_dashboard.php?section=dentists");
+        header("Location: frontend/view_dentists.php");
         exit();
     }
 }

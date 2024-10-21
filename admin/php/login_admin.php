@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['username'] = $username; // Set session variable
 
             // Redirect to a protected page (e.g., admin dashboard)
-            header("Location: admin_dashboard.php");
+            header("Location: manage_admin.php");
             exit();
         } else {
             echo "Invalid password.";

@@ -115,6 +115,11 @@ $conn->close();
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link " href="manage_admin.php">
+                            <i class="fas fa-user-md"></i> Admins
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link <?php echo ($activeSection === 'services') ? 'active' : ''; ?>" href="?section=services" onclick="showServices()">
                             <i class="fas fa-tools"></i> Services
                         </a>
