@@ -24,6 +24,6 @@ if (isset($_GET['id']) && $_GET['action'] == 'accept') {
 }
 
 $conn->close();
-header("Location: admin_dashboard.php?section=bookings&message=" . urlencode($_SESSION['message']));
+header("Location: view_bookings.php?message=" . urlencode($_SESSION['message']));
 exit();
 ?>

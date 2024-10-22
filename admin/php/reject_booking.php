@@ -24,6 +24,8 @@ if (isset($_GET['id']) && $_GET['action'] == 'reject') {
 }
 
 $conn->close();
-header("Location: admin_dashboard.php?section=bookings&message=" . urlencode($_SESSION['message']));
+
+// Correctly append the message as a query parameter
+header("Location: view_bookings.php?message=" . urlencode($_SESSION['message']));
 exit();
 ?>
