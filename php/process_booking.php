@@ -1,14 +1,6 @@
 <?php
 session_start();
 
-
-
-// Include the PHPMailer autoload file
-require __DIR__ . '/../vendor/autoload.php'; // Adjust the path if necessary
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
 // Database configuration
 $servername = "localhost";
 $username = "root";
@@ -40,36 +32,20 @@ if (isset($_POST['name'], $_POST['email'], $_POST['number'], $_POST['reason'], $
 
     // Execute the statement
     if ($stmt->execute()) {
-        // Send confirmation email
-        $mail = new PHPMailer(true); // Create a new PHPMailer instance
+        // Send confirmation email using mail()
+        $to = $email; // User email
+        $subject = 'Booking Confirmation';
+        $body = nl2br("Dear $name,<br><br>Thank you for booking with us!<br><br>Your booking details are as follows:<br>Name: $name<br>Email: $email<br>Number: $number<br>Reason: $reason<br>Branch: $branch<br>Date: $date<br>Time: $time<br><br>We look forward to seeing you!<br><br>Best Regards,<br>Dentura Team");
+        $headers = "From: noreply@dentura.com\r\n"; // Sender email
+        $headers .= "Reply-To: noreply@dentura.com\r\n";
+        $headers .= "Content-type: text/html\r\n"; // Set HTML email format
 
-        try {
-            // Server settings
-            $mail->isSMTP(); // Set mailer to use SMTP
-            $mail->Host = 'smtp.gmail.com'; // Specify main and backup SMTP servers
-            $mail->SMTPAuth = true; // Enable SMTP authentication
-            $mail->Username = 'prog.sherwin@gmail.com'; // SMTP username (your email)
-            $mail->Password = 'kguhywhcrukkhatz'; // SMTP password (your email password)
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption
-            $mail->Port = 587; // TCP port to connect to
-
-            // Recipients
-            $mail->setFrom('your_email@gmail.com', 'Dentura Booking'); // Sender email and name
-            $mail->addAddress($email, $name); // Add the user's email as recipient
-            $mail->addBCC('prog.sherwin@gmail.com'); // Add your email (admin) as BCC
-
-            // Content
-            $mail->isHTML(true); // Set email format to HTML
-            $mail->Subject = 'Booking Confirmation';
-            $mail->Body = nl2br("Dear $name,<br><br>Thank you for booking with us!<br><br>Your booking details are as follows:<br>Name: $name<br>Email: $email<br>Number: $number<br>Reason: $reason<br>Branch: $branch<br>Date: $date<br>Time: $time<br><br>We look forward to seeing you!<br><br>Best Regards,<br>Dentura Team");
-
-            // Send the email
-            $mail->send();
-
+        // Send the email
+        if (mail($to, $subject, $body, $headers)) {
             $_SESSION['booking_success'] = true; // Set session variable for success
-        } catch (Exception $e) {
+        } else {
             $_SESSION['booking_success'] = false; // Email sending failed
-            $_SESSION['email_error'] = $mail->ErrorInfo; // Store the error message
+            $_SESSION['email_error'] = "Email sending failed."; // Store the error message
         }
         
         header("Location: booking_form.php"); // Redirect to the booking form
