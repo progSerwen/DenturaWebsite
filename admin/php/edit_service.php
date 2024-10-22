@@ -91,7 +91,7 @@ $conn->close();
             </div>
         </form>
         
-        <a href="admin_dashboard.php">Back to Services</a> <!-- Link to go back to services list -->
+        <a href="frontend/view_services.php">Back to Services</a> <!-- Link to go back to services list -->
     </div>
 </body>
 </html>

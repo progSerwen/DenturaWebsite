@@ -40,6 +40,6 @@ if (isset($_GET['service_name'])) {
 $conn->close();
 
 // Redirect back to the admin dashboard
-header("Location: admin_dashboard.php?section=services");
+header("Location: frontend/view_services.php");
 exit();
 ?>

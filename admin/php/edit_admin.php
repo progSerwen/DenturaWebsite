@@ -107,7 +107,7 @@ $conn->close();
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-user-shield"></i></span>
                     </div>
-                    <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>" readonly>
+                    <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>" >
                 </div>
             </div>
             <div class="form-group">

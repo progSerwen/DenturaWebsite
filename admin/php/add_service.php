@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['service'])) {
     // Execute the statement
     if ($stmt->execute()) {
         // Redirect to admin_dashboard.php after adding the service
-        header('Location: admin_dashboard.php');
+        header('Location: frontend/view_services.php');
         exit;
     } else {
         echo "Error: " . $stmt->error; // Handle errors (you may want to display a user-friendly message)
@@ -73,7 +73,7 @@ $conn->close();
         </form>
         
         <div class="mt-4">
-            <a href="admin_dashboard.php" class="btn btn-secondary">Back to Dashboard</a>
+            <a href="frontend/view_services.php" class="btn btn-secondary">Back to Services</a>
         </div>
     </div>
 </div>

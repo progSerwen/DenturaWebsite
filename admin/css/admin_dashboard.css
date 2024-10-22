@@ -1,5 +1,3 @@
-/* dashboard.css */
-
 /* Sidebar styling */
 .sidebar {
   height: 100vh; /* Full height */
@@ -47,6 +45,28 @@
   color: #007bff; /* Bootstrap primary color */
   background-color: #f8f9fa; /* Light background for active link */
   border-color: #007bff; /* Stroke color when active */
+}
+
+/* Ensure dropdown menu isn't affected by sidebar link styles */
+.sidebar .dropdown-menu {
+  position: absolute; /* Ensure dropdown is positioned correctly */
+  left: 100%; /* Show on the right of the parent */
+  top: 0;
+  margin-top: 10px; /* Adjust as needed */
+  border-radius: 5px;
+  z-index: 1000; /* Ensure it is visible */
+}
+
+/* Make sure dropdown links are styled separately */
+.sidebar .dropdown-item {
+  color: #333; /* Default color */
+  padding: 10px 15px; /* Similar padding as .nav-link */
+  transition: all 0.3s; /* Add smooth transition */
+}
+
+.sidebar .dropdown-item:hover {
+  color: #007bff; /* Hover effect color */
+  background-color: #f8f9fa; /* Light background */
 }
 
 /* Main content area */

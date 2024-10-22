@@ -45,6 +45,6 @@ if (isset($_GET['id'])) {
 $conn->close();
 
 // Redirect back to the admin dashboard or the bookings section
-header("Location: admin_dashboard.php?section=bookings");
+header("Location: view_bookings.php");
 exit();
 ?>

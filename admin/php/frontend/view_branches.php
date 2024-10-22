@@ -15,8 +15,6 @@ if (isset($_GET['section'])) {
     $activeSection = $_GET['section'];
 }
 
-include '../manage-dentists.php';
-
 ?>
 
 
@@ -114,7 +112,6 @@ $conn->close();
                             <i class="fas fa-user-md"></i> Dentists
                         </a>
                     </li>
-                    
                     <li class="nav-item">
                         <a class="nav-link " href="view_services.php">
                             <i class="fas fa-tools"></i> Services
@@ -127,13 +124,11 @@ $conn->close();
                     </li>
                     <li class="nav-item">
                         <a class="nav-link " href="../view_bookings.php">
-                            <i class="fas fa-calendar-check"></i> View Bookings
+                            <i class="fas fa-tools"></i> View Bookings
                         </a>
                     </li>
+                    
                 </ul>
-                <!-- <div class="text-center mt-4">
-                    <a href="logout.php" class="btn btn-danger">Logout</a>
-                </div> -->
             </div>
         </nav>
 
@@ -154,113 +149,56 @@ $conn->close();
             ?>
 
             
-
-
-
-
-             <!-- After including manage-dentists.php -->
-<div class="container mt-5">
-        <h3>Dentists List</h3>
-        <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addDentistModal">
-            <i class="fas fa-plus"></i> Add Dentist
-        </button>
-        <table class="table mt-3">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (!empty($dentists)) : ?>
-                    <?php foreach ($dentists as $dentist) : ?>
+            <!-- Display Branches Information -->
+            <div id="branch-info" class="mt-5 ">
+                <div class="mb-3">
+                    <a href="add_branch.php" class="btn btn-primary">Add New Branch</a>
+                </div>
+                <table class="table mt-3">
+                    <thead>
                         <tr>
-                            <td><?php echo htmlspecialchars($dentist['id']); ?></td>
-                            <td><?php echo htmlspecialchars($dentist['name']); ?></td>
-                            <td>
-                                <!-- Edit Button -->
-                                <button class="btn text-warning mr-3" onclick="editDentist(<?php echo $dentist['id']; ?>, '<?php echo htmlspecialchars($dentist['name']); ?>')">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <!-- Delete Button -->
-                                <button class="btn text-danger" onclick="deleteDentist(<?php echo $dentist['id']; ?>)">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
+                            <th>Branch Id</th>
+                            <th>Branch Location</th>
+                            <th>Branch Link</th>
+                            <th>Actions</th>
                         </tr>
-                    <?php endforeach; ?>
-                <?php else : ?>
-                    <tr>
-                        <td colspan="3" class="text-center">No dentists available.</td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
-</div>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $conn = new mysqli("localhost", "root", "", "dentura");
 
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
 
-<!-- Modal for Adding Dentist -->
-<div class="modal fade" id="addDentistModal" tabindex="-1" role="dialog" aria-labelledby="addDentistModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addDentistModalLabel">Add Dentist</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                        $result = $conn->query("SELECT id, location, link FROM branches");
+
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr>
+                                        <td>" . htmlspecialchars($row['id']) . "</td>
+                                        <td>" . htmlspecialchars($row['location']) . "</td>
+                                        <td><a href='" . htmlspecialchars($row['link']) . "' target='_blank'>" . htmlspecialchars($row['link']) . "</a></td>
+                                        <td>
+                                            <a href='edit_branch.php?id=" . urlencode($row['id']) . "' class='text-warning mr-3'>
+                                                <i class='fas fa-edit'></i>
+                                            </a>
+                                            <a href='delete_branch.php?id=" . urlencode($row['id']) . "' class='text-danger'>
+                                                <i class='fas fa-trash'></i>
+                                            </a>
+                                        </td>
+                                      </tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='4' class='text-center'>No branches available.</td></tr>";
+                        }
+
+                        $conn->close();
+                        ?>
+                    </tbody>
+                </table>
             </div>
-            <form action="../manage-dentists.php" method="POST">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="dentistName">Name</label>
-                        <input type="text" class="form-control" id="dentistName" name="name" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" name="action" value="add">Add Dentist</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-
-        </main>
-    </div>
-</div>
-
-
-<!-- Modal for Editing Dentist -->
-<div class="modal fade" id="editDentistModal" tabindex="-1" role="dialog" aria-labelledby="editDentistModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editDentistModalLabel">Edit Dentist</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="../manage-dentists.php" method="POST">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <input type="hidden" id="editDentistId" name="id">
-                        <label for="editDentistName">Name</label>
-                        <input type="text" class="form-control" id="editDentistName" name="name" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" name="action" value="update">Update Dentist</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
+            
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -287,7 +225,7 @@ $conn->close();
                     closeOnCancel: true
                 }, function (isConfirm) {
                     if (isConfirm) {
-                        window.location.href = "../view_bookings.php"; // Redirect to bookings section
+                        window.location.href = "?section=bookings"; // Redirect to bookings section
                     }
                 });
             }
@@ -304,40 +242,6 @@ $conn->close();
             <?php unset($_SESSION['delete_error']); // Clear the message after displaying ?>
         <?php endif; ?>
     });
-</script>
-
-
-<!-- CRUD -->
-
-<!-- JavaScript Functions for Edit and Delete -->
-<script>
-    function editDentist(id, name) {
-        // Populate the modal with the current dentist information
-        document.getElementById('editDentistId').value = id;
-        document.getElementById('editDentistName').value = name;
-        $('#editDentistModal').modal('show');
-    }
-
-    function deleteDentist(id) {
-        if (confirm('Are you sure you want to delete this dentist?')) {
-            // Create a form to submit the delete action
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '../manage-dentists.php';
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'id';
-            input.value = id;
-            form.appendChild(input);
-            const actionInput = document.createElement('input');
-            actionInput.type = 'hidden';
-            actionInput.name = 'action';
-            actionInput.value = 'delete';
-            form.appendChild(actionInput);
-            document.body.appendChild(form);
-            form.submit();
-        }
-    }
 </script>
 
 </body>

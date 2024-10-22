@@ -110,18 +110,18 @@ $conn->close();
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="frontend/view_dentists.php">
+                        <a class="nav-link " href="view_dentists.php">
                             <i class="fas fa-user-md"></i> Dentists
                         </a>
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link <?php echo ($activeSection === 'services') ? 'active' : ''; ?>" href="?section=services" onclick="showServices()">
+                        <a class="nav-link " href="view_services.php">
                             <i class="fas fa-tools"></i> Services
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo ($activeSection === 'branches') ? 'active' : ''; ?>" href="?section=branches" onclick="showBranches()">
+                        <a class="nav-link" href="view_branches.php" >
                             <i class="fas fa-building"></i> Branches
                         </a>
                     </li>

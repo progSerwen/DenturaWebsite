@@ -40,6 +40,6 @@ if (isset($_GET['id'])) {
 $conn->close();
 
 // Redirect back to the admin dashboard
-header("Location: admin_dashboard.php?section=branches");
+header("Location: frontend/view_branches.php");
 exit();
 ?>

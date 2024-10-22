@@ -456,6 +456,9 @@ $conn->close();
 </div>
 
 
+
+
+
 <!-- Modal for Editing Dentist -->
 <div class="modal fade" id="editDentistModal" tabindex="-1" role="dialog" aria-labelledby="editDentistModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

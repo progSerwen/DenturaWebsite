@@ -115,12 +115,12 @@ $conn->close();
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo ($activeSection === 'services') ? 'active' : ''; ?>" href="?section=services" onclick="showServices()">
+                        <a class="nav-link " href="frontend/view_services.php">
                             <i class="fas fa-tools"></i> Services
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo ($activeSection === 'branches') ? 'active' : ''; ?>" href="?section=branches" onclick="showBranches()">
+                        <a class="nav-link" href="frontend/view_branches.php">
                             <i class="fas fa-building"></i> Branches
                         </a>
                     </li>
@@ -129,11 +129,7 @@ $conn->close();
                             <i class="fas fa-calendar-check"></i> View Bookings
                         </a>
                     </li>
-                    
                 </ul>
-                <!-- <div class="text-center mt-4">
-                    <a href="logout.php" class="btn btn-danger">Logout</a>
-                </div> -->
             </div>
         </nav>
 
@@ -200,12 +196,18 @@ $conn->close();
                     </tbody>
                 </table>
             </div>
+        </main>
+    </div>
+</div>
+
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
 
 
 
