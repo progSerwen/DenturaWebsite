@@ -124,7 +124,7 @@ $conn->close();
                     </li>
                     <li class="nav-item">
                         <a class="nav-link " href="../view_bookings.php">
-                            <i class="fas fa-tools"></i> View Bookings
+                            <i class="fas fa-calendar-check"></i> View Bookings
                         </a>
                     </li>
                     
@@ -225,7 +225,7 @@ $conn->close();
                     closeOnCancel: true
                 }, function (isConfirm) {
                     if (isConfirm) {
-                        window.location.href = "?section=bookings"; // Redirect to bookings section
+                        window.location.href = "../view_bookings.php"; // Redirect to bookings section
                     }
                 });
             }

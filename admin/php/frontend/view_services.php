@@ -103,7 +103,7 @@ $conn->close();
                 <h4 class="text-center">D E N T U R A D M I N</h4>
                 <ul class="nav flex-column">
                     <li class="nav-item active">
-                        <a class="nav-link " href="manage_admin.php">
+                        <a class="nav-link " href="../manage_admin.php">
                             <i class="fas fa-user-shield"></i> Manage Admins
                         </a>
                     </li>
@@ -278,7 +278,7 @@ $conn->close();
                     closeOnCancel: true
                 }, function (isConfirm) {
                     if (isConfirm) {
-                        window.location.href = "?section=bookings"; // Redirect to bookings section
+                        window.location.href = "../view_bookings.php"; // Redirect to bookings section
                     }
                 });
             }

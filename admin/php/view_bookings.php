@@ -110,18 +110,18 @@ $conn->close();
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="view_dentists.php">
+                        <a class="nav-link " href="frontend/view_dentists.php">
                             <i class="fas fa-user-md"></i> Dentists
                         </a>
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link " href="view_services.php">
+                        <a class="nav-link " href="frontend/view_services.php">
                             <i class="fas fa-tools"></i> Services
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="view_branches.php" >
+                        <a class="nav-link" href="frontend/view_branches.php" >
                             <i class="fas fa-building"></i> Branches
                         </a>
                     </li>
@@ -254,7 +254,7 @@ $conn->close();
                     closeOnCancel: true
                 }, function (isConfirm) {
                     if (isConfirm) {
-                        window.location.href = "?section=bookings"; // Redirect to bookings section
+                        window.location.href = "view_bookings.php"; // Redirect to bookings section
                     }
                 });
             }
